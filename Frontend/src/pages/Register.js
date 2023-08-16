@@ -16,7 +16,7 @@ import {
 //NOW USING REACT TO VALIDATE FORM
 const isEmpty = (value) => value.trim() === '';
 const isEightChars = (value) => value.trim().length >= 8;
-const isTenChars = (value) => value.trim().length === 10;
+const isTenChars = (value) => value.trim().length === 4;
 const validateEmail = (email) => {
     const atIndex = email.indexOf('@');
     return atIndex === -1;
@@ -27,7 +27,7 @@ const validateRepeatPassword = (password, repeatPassword) => {
 
 function Register() {
 
-    const BACKEND_BASE_URL = "https://chitra-generator-backend.onrender.com";
+    const BACKEND_BASE_URL = "http://localhost:5000";
     const navigate = useNavigate();
     function errorMsg(noti) {
         toast.error(noti, {
@@ -47,7 +47,7 @@ function Register() {
         firstName: true,
         lastName: true,
         userName: true,
-        phoneNumber: true,
+        batch: true,
         email: true,
         password: true,
         repeatPassword: true,
@@ -56,7 +56,7 @@ function Register() {
     const firstNameInputRef = useRef();
     const lastNameInputRef = useRef();
     const userNameInputRef = useRef();
-    const phoneNumberInputRef = useRef();
+    const batchInputRef = useRef();
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const repeatPasswordInputRef = useRef();
@@ -69,7 +69,7 @@ function Register() {
         const enteredFirstName = firstNameInputRef.current.value;
         const enteredLastName = lastNameInputRef.current.value;
         const enteredUserName = userNameInputRef.current.value;
-        const enteredPhoneNumber = phoneNumberInputRef.current.value;
+        const enteredbatch = batchInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
         const enteredRepeatPassword = repeatPasswordInputRef.current.value;
@@ -77,7 +77,7 @@ function Register() {
 
         const enteredFirstNameIsValid = !isEmpty(enteredFirstName);
         const enteredUserNameIsValid = !isEmpty(enteredUserName);
-        const enteredPhoneNumberIsValid = isTenChars(enteredPhoneNumber);
+        const enteredbatchIsValid = isTenChars(enteredbatch);
         const enteredEmailIsValid = !validateEmail(enteredEmail);
         const enteredPasswordIsValid = isEightChars(enteredPassword);
         const enteredRepeatPasswordIsValid = validateRepeatPassword(enteredPassword, enteredRepeatPassword);
@@ -87,7 +87,7 @@ function Register() {
                 firstName: enteredFirstNameIsValid,
                 lastName: true,
                 userName: enteredUserNameIsValid,
-                phoneNumber: enteredPhoneNumberIsValid,
+                batch: enteredbatchIsValid,
                 email: enteredEmailIsValid,
                 password: enteredPasswordIsValid,
                 repeatPassword: enteredRepeatPasswordIsValid,
@@ -95,7 +95,7 @@ function Register() {
         );
         const formIsValid =
             enteredFirstNameIsValid && enteredUserNameIsValid && enteredEmailIsValid && enteredPasswordIsValid &&
-            enteredRepeatPasswordIsValid && enteredPhoneNumberIsValid;
+            enteredRepeatPasswordIsValid && enteredbatchIsValid;
 
         if (!formIsValid) {
             return;
@@ -106,7 +106,7 @@ function Register() {
             firstName: enteredFirstName,
             lastName: enteredLastName,
             userName: enteredUserName,
-            phonenumber: enteredPhoneNumber,
+            batch: enteredbatch,
             email: enteredEmail,
             password: enteredPassword,
             repeatPassword: enteredRepeatPassword,
@@ -161,7 +161,7 @@ function Register() {
             firstNameInputRef.current.value = '';
             lastNameInputRef.current.value = '';
             userNameInputRef.current.value = '';
-            phoneNumberInputRef.current.value = '';
+            batchInputRef.current.value = '';
             emailInputRef.current.value = '';
             passwordInputRef.current.value = '';
             repeatPasswordInputRef.current.value = '';
@@ -171,7 +171,7 @@ function Register() {
     };
 
     useEffect(() => {
-        if (localStorage["chitra_generator"]) {
+        if (localStorage["Nostalgic_ISM"]) {
             navigate("/");
         }
     }, []);
@@ -191,8 +191,8 @@ function Register() {
                                     <span style={{ color: 'black' }}>#ISM_Diaries</span>
                                 </h1>
                                 <p className='mb-4 opacity-80' style={{ color: 'black', fontStyle: "italic" }}>
-                                "One may extricate an individual from the realm of ISM, yet the essence of ISM shall forever dwell within that very soul."
-                                <br></br>Nostalgic ISM is a dedicated social platform, lovingly created for ISM peers❤️, enabling them to share their college memories, past relationships, and personal achievements.
+                                    "One may extricate an individual from the realm of ISM, yet the essence of ISM shall forever dwell within that very soul."
+                                    <br></br>Nostalgic ISM is a dedicated social platform, lovingly created for ISM peers❤️, enabling them to share their college memories, past relationships, and personal achievements.
                                 </p>
                             </div>
                             {/* SignUp Form  */}
@@ -219,15 +219,14 @@ function Register() {
 
                                             <MDBInput className='mb-4' type='text' ref={userNameInputRef} id='registerUsername' label='College Nick Name' />
                                             {!formInputsValidity.userName && errorMsg("Please Enter a valid user name!")}
-                                            <MDBInput className='mb-4' type='number' ref={phoneNumberInputRef} id='registerPhone' label='Phone Number' />
-                                            {!formInputsValidity.phoneNumber && errorMsg("Please Enter a valid phone number!")}
+                                            <MDBInput className='mb-4' type='number' ref={batchInputRef} id='registerPhone' label='Year of Graduation' />
+                                            {!formInputsValidity.batch && errorMsg("Please Enter a valid Batch!")}
                                             <MDBInput className='mb-4' type='email' ref={emailInputRef} id='registerEmail' label='Email' />
                                             {!formInputsValidity.email && errorMsg("Please Enter a valid email address!")}
                                             <MDBInput className='mb-4' type='password' ref={passwordInputRef} id='registerPassword' label='Password' />
                                             {!formInputsValidity.password && errorMsg("Password must be eight chars long")}
                                             <MDBInput className='mb-4' type='password' ref={repeatPasswordInputRef} id='registerRepeatPassword' label='Repeat password' />
                                             {!formInputsValidity.repeatPassword && errorMsg("Both password entries must be same")}
-
                                             <MDBBtn type='submit' block className='mb-4' style={{ color: "white", background: "black" }}>
                                                 Sign up
                                             </MDBBtn>

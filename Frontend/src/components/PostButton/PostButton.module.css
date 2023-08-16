@@ -1,0 +1,15 @@
+.postButton {
+    position: fixed;
+    top: 90vh;
+    z-index: 5;
+    left: 92vw;
+    background-color: black;
+}
+
+@media (max-width: 640px) {
+    left: 8vw;
+}
+
+@media (hover) {
+    background-color: grey;
+}

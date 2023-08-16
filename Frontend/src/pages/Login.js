@@ -11,7 +11,7 @@ import {
     MDBBtn,
 } from 'mdb-react-ui-kit';
 function Login() {
-    const BACKEND_BASE_URL = "https://chitra-generator-backend.onrender.com";
+    const BACKEND_BASE_URL = "http://localhost:5000";
     const navigate = useNavigate();
     const [enteredEmail, setEnteredEmail] = useState('');
     const [enteredPassword, setEnteredPassword] = useState('');
@@ -48,7 +48,7 @@ function Login() {
             });
             // console.log(response.data.id);
             localStorage.setItem(
-                "chitra_generator",
+                "Nostalgic_ISM",
                 JSON.stringify(enteredEmail));
             setTimeout(() => {
                 navigate("/");
@@ -70,7 +70,7 @@ function Login() {
     };
 
     useEffect(() => {
-        if (localStorage["chitra_generator"]) {
+        if (localStorage["Nostalgic_ISM"]) {
             navigate("/");
         }
     }, []);
@@ -96,8 +96,8 @@ function Login() {
                                     <span style={{ color: 'black' }}>#ISM_Diaries</span>
                                 </h1>
                                 <p className='mb-4 opacity-80' style={{ color: 'black', fontStyle: "italic" }}>
-                                "One may extricate an individual from the realm of ISM, yet the essence of ISM shall forever dwell within that very soul."
-                                <br></br>Nostalgic ISM is a dedicated social platform, lovingly created for ISM peers❤️, enabling them to share their college memories, past relationships, and personal achievements.
+                                    "One may extricate an individual from the realm of ISM, yet the essence of ISM shall forever dwell within that very soul."
+                                    <br></br>Nostalgic ISM is a dedicated social platform, lovingly created for ISM peers❤️, enabling them to share their college memories, past relationships, and personal achievements.
                                 </p>
                             </div>
                             {/* SignUp Form  */}

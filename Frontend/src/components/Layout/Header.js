@@ -30,7 +30,7 @@ export default function Header() {
 
     const navigate = useNavigate();
     const logoutHandler = () => {
-        localStorage.setItem("chitra_generator", "");
+        localStorage.setItem("Nostalgic_ISM", "");
         navigate("/login");
     }
     const [showBasic, setShowBasic] = useState(false);
@@ -39,17 +39,17 @@ export default function Header() {
     const toggleShow = () => setBasicModal(!basicModal);
     //Updating Perssonal Information
     const [editing, setEditing] = useState(false);
-    const BACKEND_BASE_URL = "https://chitra-generator-backend.onrender.com";
-    const LoggedInEmail = localStorage.getItem("chitra_generator");
+    const BACKEND_BASE_URL = "http://localhost:5000";
+    const LoggedInEmail = localStorage.getItem("Nostalgic_ISM");
 
     //Getting User's Information
     const [firstName, setfirstName] = useState('');
     const [lastName, setlastName] = useState('');
     const [userName, setuserName] = useState('');
-    const [phoneNumber, setphoneNumber] = useState('');
+    const [batch, setbatch] = useState('');
 
     const profileHandler = async () => {
-        if (!localStorage["chitra_generator"]) {
+        if (!localStorage["Nostalgic_ISM"]) {
             navigate("/login");
             return;
         }
@@ -62,7 +62,7 @@ export default function Header() {
             setfirstName(responseData.firstName);
             setlastName(responseData.lastName);
             setuserName(responseData.userName);
-            setphoneNumber(responseData.phonenumber);
+            setbatch(responseData.batch);
         };
         fetchDetails().catch((error) => {
             alert("Something wrong happened!");
@@ -91,7 +91,7 @@ export default function Header() {
                             </MDBRow>
 
                             <MDBInput className='mb-4' type='text' disabled={true} value={userName} id='registerUsername' label='Username' />
-                            <MDBInput className='mb-4' type='number' disabled={true} value={phoneNumber} id='registerPhone' label='Phone Number' />
+                            <MDBInput className='mb-4' type='number' disabled={true} value={batch} id='registerPhone' label='Phone Number' />
                         </MDBModalBody>
                     </MDBModalContent>
                 </MDBModalDialog>
@@ -100,13 +100,7 @@ export default function Header() {
             <MDBNavbar fixed='top' expand='lg' dark bgColor='dark' >
                 <MDBContainer fluid>
                     <MDBNavbarBrand onClick={() => { navigate("/"); }} style={{ color: "white" }}>
-                        <img
-                            src={imgSrc}
-                            height='30'
-                            alt=''
-                            loading='lazy'
-                        />
-                        Chitra_Generator
+                        Nostalgic_ISM
                     </MDBNavbarBrand>
 
                     <MDBNavbarToggler

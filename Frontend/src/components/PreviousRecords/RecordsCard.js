@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card'
 import { MDBContainer, MDBRow } from 'mdb-react-ui-kit';
-
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+  MDBCard,
+  MDBCardHeader,
+  MDBCardBody,
+  MDBTypography
+} from 'mdb-react-ui-kit';
 export default function RecordsCard() {
 
   const [previous, setPrevious] = useState([]);
 
-  const BACKEND_BASE_URL = "https://chitra-generator-backend.onrender.com";
+  const BACKEND_BASE_URL = "http://localhost:5000";
   const URL = `${BACKEND_BASE_URL}/allpostsinformation`;//to replace double inverted from email-id.
   useEffect(() => {
     const fetchDetails = async () => {
@@ -22,8 +32,9 @@ export default function RecordsCard() {
         loadedHistory.push({
           id: key,
           email: responseData[key].email,
-          url: responseData[key].url,
           title: responseData[key].title,
+          description: responseData[key].description,
+          date: responseData[key].date,
         });
       };
       setPrevious(loadedHistory);
@@ -31,17 +42,39 @@ export default function RecordsCard() {
     fetchDetails().catch((error) => {
       alert(error.message);
     });
-  },[]);
+  }, []);
+
+  const LoggedInEmail = localStorage.getItem("Nostalgic_ISM");
+  const loggedEmail = `${LoggedInEmail.replace(/['"]+/g, '')}`;//to replace double inverted from email-id.
+
+  const filtereditem = previous.filter((item) => {
+    return item.email.toString() === loggedEmail.toString();
+  });
 
   const HistoryItems = (
-    <MDBRow className='row-cols-1 row-cols-md-4 ' >
+    <MDBRow className="d-grid gap-3">
       {previous.map((item) => (
         <Card
           key={item.id}
           id={item.id}
           email={item.email}
           title={item.title}
-          url={item.url}
+          description={item.description}
+          date={item.date}
+        />
+      ))}
+    </MDBRow>
+  );
+  const filteredHistoryItems = (
+    <MDBRow className="d-grid gap-3">
+      {filtereditem.map((item) => (
+        <Card
+          key={item.id}
+          id={item.id}
+          email={item.email}
+          title={item.title}
+          description={item.description}
+          date={item.date}
         />
       ))}
     </MDBRow>
@@ -49,21 +82,49 @@ export default function RecordsCard() {
 
   const HistoryModalContent = (
     <MDBContainer className='p-4'>
-      <section className='mb-4'>
-        <p className='pt-2' style={{ fontSize: "1.25rem" }}>
-          <strong>THE COMMUNITY SHOWCASE</strong>
-        </p>
-      </section>
-      <section className='mb-4'>
-        {previous.length == 0 && <h4>No records found !</h4>}
-        {HistoryItems}
-      </section>
+      {previous.length == 0 && <h4>No records found !</h4>}
+      {HistoryItems}
     </MDBContainer>
   );
 
+  const filteredHistoryModalContent = (
+    <MDBContainer className='p-4'>
+      {filtereditem.length == 0 && <h4>No records found !</h4>}
+      {filteredHistoryItems}
+    </MDBContainer>
+  );
+
+
+  const [fillActive, setFillActive] = useState('tab1');
+
+  const handleFillClick = (value: string) => {
+    if (value === fillActive) {
+      return;
+    }
+
+    setFillActive(value);
+  };
   return (
     <>
-      {HistoryModalContent}
+      {/* {HistoryModalContent} */}
+      <MDBTabs pills fill className='mb-3'>
+        <MDBTabsItem>
+          <MDBTabsLink onClick={() => { handleFillClick('tab1') }} active={fillActive === 'tab1'} >
+            For you
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink onClick={() => handleFillClick('tab2')} active={fillActive === 'tab2'}>
+            Your Posts
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
+
+      <MDBTabsContent>
+        <MDBTabsPane show={fillActive === 'tab1'}>{HistoryModalContent}</MDBTabsPane>
+        <MDBTabsPane show={fillActive === 'tab2'}>{filteredHistoryModalContent}</MDBTabsPane>
+      </MDBTabsContent>
+
     </>
   );
 }
