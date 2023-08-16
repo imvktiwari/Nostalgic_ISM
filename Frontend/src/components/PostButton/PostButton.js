@@ -17,7 +17,7 @@ import { useNavigate } from "react-router";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function PostButton() {
-    const BACKEND_BASE_URL = "http://localhost:5000";
+    const BACKEND_BASE_URL = "https://nostalgic-ism-backend.onrender.com";
     const [basicModal, setBasicModal] = useState(false);
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredDescription, setEnteredDescription] = useState('');

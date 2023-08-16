@@ -12,7 +12,7 @@ export default function Card(props) {
     //Getting User's Information
 
     const [userData, setUserData] = useState('');
-    const BACKEND_BASE_URL = "http://localhost:5000";
+    const BACKEND_BASE_URL = "https://nostalgic-ism-backend.onrender.com";
     useEffect(() => {
         const fetchDetails = async () => {
             const response = await fetch(`${BACKEND_BASE_URL}/userinformation/${(props.email).replace(/['"]+/g, '')}`);
@@ -37,8 +37,7 @@ export default function Card(props) {
                     </MDBTypography>
                 </MDBCardBody>
                 <MDBCardFooter className="bg-dark fs-6 text-white bg-opacity-50 fst-italic" >
-                    <MDBCardImage width="50" src="https://lh3.googleusercontent.com/p/AF1QipOWYxSZwg3iTHYgNhwtTHQzs66wFpaT6rFVRIzn=s1360-w1360-h1020" alt="avatar" className="rounded-circle me-1" fluid />
-                    {userData.firstName} {userData.lastName} , Batch of {userData.batch}
+                    - {userData.firstName} {userData.lastName} , Batch of {userData.batch}
                     {/* <cite title='Source Title'>Source Title</cite> */}
                 </MDBCardFooter>
             </MDBCard>

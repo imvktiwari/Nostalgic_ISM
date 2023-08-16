@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card'
 import { MDBContainer, MDBRow } from 'mdb-react-ui-kit';
+import { useNavigate } from "react-router";
 import {
   MDBTabs,
   MDBTabsItem,
@@ -13,12 +14,15 @@ import {
   MDBTypography
 } from 'mdb-react-ui-kit';
 export default function RecordsCard() {
-
+  const navigate = useNavigate();
   const [previous, setPrevious] = useState([]);
 
-  const BACKEND_BASE_URL = "http://localhost:5000";
+  const BACKEND_BASE_URL = "https://nostalgic-ism-backend.onrender.com";
   const URL = `${BACKEND_BASE_URL}/allpostsinformation`;//to replace double inverted from email-id.
   useEffect(() => {
+    if (!localStorage["Nostalgic_ISM"]) {
+      navigate("/login");
+    }
     const fetchDetails = async () => {
       const response = await fetch(URL);
       if (!response.ok) {
@@ -45,6 +49,7 @@ export default function RecordsCard() {
   }, []);
 
   const LoggedInEmail = localStorage.getItem("Nostalgic_ISM");
+  console.log(LoggedInEmail);
   const loggedEmail = `${LoggedInEmail.replace(/['"]+/g, '')}`;//to replace double inverted from email-id.
 
   const filtereditem = previous.filter((item) => {

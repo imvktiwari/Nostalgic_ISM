@@ -27,7 +27,7 @@ const validateRepeatPassword = (password, repeatPassword) => {
 
 function Register() {
 
-    const BACKEND_BASE_URL = "http://localhost:5000";
+    const BACKEND_BASE_URL = "https://nostalgic-ism-backend.onrender.com";
     const navigate = useNavigate();
     function errorMsg(noti) {
         toast.error(noti, {
