@@ -49,8 +49,9 @@ export default function RecordsCard() {
   }, []);
 
   const LoggedInEmail = localStorage.getItem("Nostalgic_ISM");
-  console.log(LoggedInEmail);
-  const loggedEmail = `${LoggedInEmail.replace(/['"]+/g, '')}`;//to replace double inverted from email-id.
+  let loggedEmail = '';
+  if (LoggedInEmail)
+    loggedEmail = `${LoggedInEmail.replace(/["']/g, "")}`;//to replace double inverted from email-id.
 
   const filtereditem = previous.filter((item) => {
     return item.email.toString() === loggedEmail.toString();
