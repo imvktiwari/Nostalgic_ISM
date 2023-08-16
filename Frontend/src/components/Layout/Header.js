@@ -69,8 +69,7 @@ export default function Header() {
         });
         toggleShow();
     }
-
-
+    
     return (
         <>
             <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
